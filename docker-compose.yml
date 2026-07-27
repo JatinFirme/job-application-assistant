@@ -7,6 +7,8 @@ services:
       - ./backend:/app   # Mount local code into the container so
                                    # --reload picks up your edits instantly,
                                    # without rebuilding the image every time.
+    env_file:
+      - ./backend/.env
     environment:
       - ENVIRONMENT=development
       # "db" here is the service name below -- Docker Compose gives every
@@ -20,6 +22,8 @@ services:
 
   db:
     image: postgres:16-alpine
+    env_file:
+      - ./backend/.env
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

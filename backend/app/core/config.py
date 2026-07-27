@@ -11,10 +11,11 @@ class Settings:
         "postgresql+psycopg://postgres:postgres@localhost:5432/job_assistant",
     )
 
-    # Where uploaded resume files get saved inside the container. Because
-    # docker-compose.yml mounts ./backend to /app, anything written here
-    # also appears on your host at backend/uploads/.
     upload_dir: str = os.getenv("UPLOAD_DIR", "/app/uploads")
+
+    # Adzuna credentials -- loaded from backend/.env, never committed to Git.
+    adzuna_app_id: str = os.getenv("ADZUNA_APP_ID", "")
+    adzuna_app_key: str = os.getenv("ADZUNA_APP_KEY", "")
 
 
 settings = Settings()

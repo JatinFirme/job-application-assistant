@@ -9,6 +9,7 @@ from alembic import context
 from app.core.config import settings
 from app.db import Base
 from app.models.resume import Resume  # noqa: F401 -- import registers the model
+from app.models.job import Job  # noqa: F401 -- import registers the model
 
 config = context.config
 
