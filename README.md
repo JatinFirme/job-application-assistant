@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Job Application Assistant
 
 AI-powered job search, ranking, tracking, and cover-letter assistant.
@@ -37,3 +38,7 @@ API documentation for every endpoint you write. This will become very
 useful as we add more routes.
 
 Stop the container with `Ctrl+C`, then `make down` to clean up.
+=======
+# job-application-assistant
+Basic Job search AI integreated tool
+>>>>>>> f7712c190c4a26ffbcc199dabcfeb794064ea12c
