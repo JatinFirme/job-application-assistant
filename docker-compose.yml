@@ -1,0 +1,11 @@
+services:
+  backend:
+    build: ./backend        # Build the image from backend/Dockerfile
+    ports:
+      - "8000:8000"          # host_port:container_port
+    volumes:
+      - ./backend/app:/app/app   # Mount local code into the container so
+                                   # --reload picks up your edits instantly,
+                                   # without rebuilding the image every time.
+    environment:
+      - ENVIRONMENT=development
