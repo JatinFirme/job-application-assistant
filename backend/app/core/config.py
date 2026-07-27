@@ -4,17 +4,17 @@ import os
 class Settings:
     """
     Centralizes all environment-based configuration in one place.
-
-    This is a Clean Architecture principle: configuration is an
-    "infrastructure" concern. Nothing else in the app should know or care
-    HOW config is loaded (env var today, maybe Azure Key Vault or AWS
-    Secrets Manager later) -- it just reads `settings.database_url`.
     """
 
     database_url: str = os.getenv(
         "DATABASE_URL",
         "postgresql+psycopg://postgres:postgres@localhost:5432/job_assistant",
     )
+
+    # Where uploaded resume files get saved inside the container. Because
+    # docker-compose.yml mounts ./backend to /app, anything written here
+    # also appears on your host at backend/uploads/.
+    upload_dir: str = os.getenv("UPLOAD_DIR", "/app/uploads")
 
 
 settings = Settings()
