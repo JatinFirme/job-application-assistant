@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"          # host_port:container_port
     volumes:
-      - ./backend/app:/app/app   # Mount local code into the container so
+      - ./backend:/app   # Mount local code into the container so
                                    # --reload picks up your edits instantly,
                                    # without rebuilding the image every time.
     environment:
@@ -12,7 +12,7 @@ services:
       # "db" here is the service name below -- Docker Compose gives every
       # service a DNS name on its internal network, so "db" resolves to
       # the Postgres container's IP automatically. No hardcoded IPs.
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/job_assistant
+      - DATABASE_URL=postgresql+psycopg://postgres:postgres@db:5432/job_assistant
     depends_on:
       db:
         condition: service_healthy   # wait until Postgres reports healthy,

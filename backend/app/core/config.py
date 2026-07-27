@@ -13,7 +13,7 @@ class Settings:
 
     database_url: str = os.getenv(
         "DATABASE_URL",
-        "postgresql://postgres:postgres@localhost:5432/job_assistant",
+        "postgresql+psycopg://postgres:postgres@localhost:5432/job_assistant",
     )
 
 
