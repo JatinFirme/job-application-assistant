@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.resumes import router as resumes_router
+from app.api.jobs import router as jobs_router
 from app.db import check_db_connection
 
 # This creates the FastAPI "application" object.
@@ -10,6 +11,7 @@ app = FastAPI(title="Job Application Assistant API")
 # Because the router itself has prefix="/resumes", the upload endpoint
 # becomes POST /resumes/upload and the list endpoint becomes GET /resumes/.
 app.include_router(resumes_router)
+app.include_router(jobs_router)
 
 
 @app.get("/")
