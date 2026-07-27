@@ -9,3 +9,31 @@ services:
                                    # without rebuilding the image every time.
     environment:
       - ENVIRONMENT=development
+      # "db" here is the service name below -- Docker Compose gives every
+      # service a DNS name on its internal network, so "db" resolves to
+      # the Postgres container's IP automatically. No hardcoded IPs.
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/job_assistant
+    depends_on:
+      db:
+        condition: service_healthy   # wait until Postgres reports healthy,
+                                       # not just "started", before booting
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=job_assistant
+    ports:
+      - "5432:5432"          # optional: lets you connect a DB client from
+                               # your host machine too, e.g. DBeaver/psql
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # persists data across restarts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:

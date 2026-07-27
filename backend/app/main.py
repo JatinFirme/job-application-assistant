@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from app.db import check_db_connection
+
 # This creates the FastAPI "application" object.
 # Think of this as the equivalent of starting an nginx/HAProxy instance —
 # every route we add below gets attached to this one object.
@@ -23,3 +25,14 @@ def health_check():
     building the endpoint it calls.
     """
     return {"status": "healthy"}
+
+
+@app.get("/db-health")
+def db_health_check():
+    """
+    Proves the backend container can actually reach the Postgres container
+    over the Docker network and run a query.
+    """
+    if check_db_connection():
+        return {"status": "connected"}
+    return {"status": "disconnected"}
